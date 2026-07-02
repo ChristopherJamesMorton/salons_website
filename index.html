@@ -37,9 +37,10 @@
   .hero h1{font-size:46px;line-height:1.1;margin:.2em 0}
   .hero p{font-size:18px;color:var(--muted);max-width:46ch}
   .hero-cta{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}
-  .suite-photo{border-radius:var(--radius);aspect-ratio:4/5;background:
-    linear-gradient(135deg,#d9c2a8,#c98c8c);box-shadow:0 20px 50px rgba(0,0,0,.12);
-    display:flex;align-items:flex-end;padding:18px;color:#fff;font-family:Georgia,serif}
+  .suite-photo{border-radius:var(--radius);aspect-ratio:4/5;
+    background:linear-gradient(to top,rgba(0,0,0,.55),transparent 55%),url('assets/salon/hero.jpg') center/cover;
+    box-shadow:0 20px 50px rgba(0,0,0,.12);
+    display:flex;align-items:flex-end;padding:18px;color:#fff;font-family:Georgia,serif;font-size:22px}
   @media(max-width:720px){.hero-grid{grid-template-columns:1fr}.hero h1{font-size:34px}}
 
   /* generic grids */
@@ -51,7 +52,7 @@
   .card .body{padding:18px}
   .card h3{margin:0 0 6px;font-size:19px}
   .card .price{color:var(--gold-dk);font-weight:700;font-size:17px}
-  .thumb{aspect-ratio:16/11;background:linear-gradient(135deg,#e7d6c3,#cfa9a9);display:flex;align-items:center;justify-content:center;color:#fff;font-family:Georgia,serif;font-size:20px}
+  .thumb{aspect-ratio:16/11;background:linear-gradient(135deg,#e7d6c3,#cfa9a9) center/cover;background-repeat:no-repeat;display:flex;align-items:center;justify-content:center;color:#fff;font-family:Georgia,serif;font-size:20px}
 
   .center{text-align:center}
   .lead{color:var(--muted);max-width:60ch;margin:0 auto}
@@ -122,9 +123,9 @@
     <h2 class="center">The Suite</h2>
     <p class="lead center">A calm, private space designed around you — modern styling station, wash lounge, and a curated product bar.</p>
     <div class="grid g3" style="margin-top:34px">
-      <div class="card"><div class="thumb">Styling Station</div><div class="body"><h3>Styling Station</h3><p class="lead">Pro lighting and a full-length mirror for a true-to-life reveal.</p></div></div>
-      <div class="card"><div class="thumb">Wash Lounge</div><div class="body"><h3>Wash Lounge</h3><p class="lead">Heated massage basin with a spa-grade cleanse and scalp treatment.</p></div></div>
-      <div class="card"><div class="thumb">Product Bar</div><div class="body"><h3>Product Bar</h3><p class="lead">Take-home care hand-picked to match your extensions and color.</p></div></div>
+      <div class="card"><div class="thumb" style="background-image:url('assets/salon/station.jpg')"></div><div class="body"><h3>Styling Station</h3><p class="lead">Pro lighting and a full-length mirror for a true-to-life reveal.</p></div></div>
+      <div class="card"><div class="thumb" style="background-image:url('assets/salon/wash.jpg')"></div><div class="body"><h3>Wash Lounge</h3><p class="lead">Heated massage basin with a spa-grade cleanse and scalp treatment.</p></div></div>
+      <div class="card"><div class="thumb" style="background-image:url('assets/salon/productbar.jpg')"></div><div class="body"><h3>Product Bar</h3><p class="lead">Take-home care hand-picked to match your extensions and color.</p></div></div>
     </div>
   </div>
 </section>
@@ -240,16 +241,16 @@ async function sendLead(subject, data){
 
 /* ---- Products ---- */
 const PRODUCTS = [
-  ["Bond Repair Shampoo","Sulfate-free cleanse safe for extensions.",32],
-  ["Hydrating Conditioner","Weightless slip, no residue at the bonds.",34],
-  ["Heat Shield Spray","Thermal protection up to 450°F.",26],
-  ["Extension Brush","Looped bristles that won't snag wefts.",18],
-  ["Silk Pillowcase","Less friction, longer-lasting installs.",45],
-  ["Leave-In Treatment","Daily moisture + detangle.",28],
+  ["Bond Repair Shampoo","Sulfate-free cleanse safe for extensions.",32,"p-shampoo.jpg"],
+  ["Hydrating Conditioner","Weightless slip, no residue at the bonds.",34,"p-conditioner.jpg"],
+  ["Heat Shield Spray","Thermal protection up to 450°F.",26,"p-heatspray.jpg"],
+  ["Extension Brush","Looped bristles that won't snag wefts.",18,"p-brush.jpg"],
+  ["Silk Pillowcase","Less friction, longer-lasting installs.",45,"p-pillow.jpg"],
+  ["Leave-In Treatment","Daily moisture + detangle.",28,"p-leavein.jpg"],
 ];
-document.getElementById("shop-grid").innerHTML = PRODUCTS.map(([n,d,p]) => `
+document.getElementById("shop-grid").innerHTML = PRODUCTS.map(([n,d,p,img]) => `
   <div class="card">
-    <div class="thumb">${n}</div>
+    <div class="thumb" style="background-image:url('assets/salon/${img}')"></div>
     <div class="body">
       <h3>${n}</h3><p class="lead">${d}</p>
       <p class="price">$${p}</p>
@@ -344,7 +345,6 @@ const HOLIDAY_THEMES = {
       html.theme-july4 footer{ background:rgba(8,12,30,.55); }
       html.theme-july4 .card{ backdrop-filter:blur(3px); }
       html.theme-july4 .suite-photo{ background:rgba(16,23,52,.25);border:1px solid rgba(255,255,255,.4);box-shadow:0 20px 50px rgba(0,0,0,.35); }
-      html.theme-july4 .thumb{ background:linear-gradient(135deg,#3c3b6e,#b22234); }
       html.theme-july4 .eyebrow{ color:#ffc9c9; }
       html.theme-july4 .eyebrow::before{ content:"★ "; color:#ff6b6b; }
       html.theme-july4 .hero h1::after{ content:" ✦"; color:#ffd94d; }
