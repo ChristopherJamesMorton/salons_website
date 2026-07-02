@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Velvet Suite — Salon &amp; Hair Extensions</title>
+<style>
+  :root{
+    --bg:#faf7f4; --ink:#2b2b2b; --muted:#7a6f68;
+    --gold:#b58a5a; --gold-dk:#8f6a3e; --rose:#c98c8c;
+    --card:#fff; --line:#ece4dc; --radius:14px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+  h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:600;letter-spacing:.2px}
+  a{color:var(--gold-dk)}
+  img{max-width:100%;display:block}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+  .btn{display:inline-block;background:var(--gold);color:#fff;border:0;padding:12px 22px;border-radius:999px;font-size:15px;cursor:pointer;text-decoration:none;transition:background .2s}
+  .btn:hover{background:var(--gold-dk)}
+  .btn.ghost{background:transparent;color:var(--gold-dk);border:1px solid var(--gold)}
+  section{padding:64px 0}
+  .eyebrow{color:var(--gold-dk);text-transform:uppercase;letter-spacing:3px;font-size:12px;margin:0 0 8px}
+
+  /* header */
+  header{position:sticky;top:0;z-index:40;background:rgba(250,247,244,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 20px}
+  .brand{font-family:Georgia,serif;font-size:22px;font-weight:700}
+  .brand span{color:var(--gold)}
+  .nav-links a{margin-left:22px;text-decoration:none;color:var(--ink);font-size:15px}
+  .nav-links a:hover{color:var(--gold-dk)}
+  @media(max-width:720px){.nav-links{display:none}}
+
+  /* hero */
+  .hero{background:linear-gradient(120deg,#f3e9df,#f7eef0);padding:80px 0}
+  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+  .hero h1{font-size:46px;line-height:1.1;margin:.2em 0}
+  .hero p{font-size:18px;color:var(--muted);max-width:46ch}
+  .hero-cta{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap}
+  .suite-photo{border-radius:var(--radius);aspect-ratio:4/5;background:
+    linear-gradient(135deg,#d9c2a8,#c98c8c);box-shadow:0 20px 50px rgba(0,0,0,.12);
+    display:flex;align-items:flex-end;padding:18px;color:#fff;font-family:Georgia,serif}
+  @media(max-width:720px){.hero-grid{grid-template-columns:1fr}.hero h1{font-size:34px}}
+
+  /* generic grids */
+  .grid{display:grid;gap:22px}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:820px){.g3,.g2{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  .card .body{padding:18px}
+  .card h3{margin:0 0 6px;font-size:19px}
+  .card .price{color:var(--gold-dk);font-weight:700;font-size:17px}
+  .thumb{aspect-ratio:16/11;background:linear-gradient(135deg,#e7d6c3,#cfa9a9);display:flex;align-items:center;justify-content:center;color:#fff;font-family:Georgia,serif;font-size:20px}
+
+  .center{text-align:center}
+  .lead{color:var(--muted);max-width:60ch;margin:0 auto}
+
+  /* booking */
+  #book{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .book-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+  @media(max-width:820px){.book-grid{grid-template-columns:1fr}}
+  form label{display:block;font-size:14px;margin:14px 0 6px;font-weight:600}
+  form input,form select,form textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;font-size:15px;background:#fdfbf9}
+  .fee{background:#fbf1e8;border:1px solid #e8d3bd;border-radius:12px;padding:16px;margin:18px 0;font-size:14px}
+  .fee b{color:var(--gold-dk)}
+
+  footer{background:#2b2b2b;color:#d8cfc7;padding:40px 0;font-size:14px}
+  footer a{color:#e6c79c}
+
+  /* chat widget */
+  #chat-toggle{position:fixed;right:20px;bottom:20px;z-index:60;width:60px;height:60px;border-radius:50%;background:var(--gold);color:#fff;border:0;font-size:26px;cursor:pointer;box-shadow:0 10px 26px rgba(0,0,0,.22)}
+  #chat{position:fixed;right:20px;bottom:92px;z-index:60;width:340px;max-width:calc(100vw - 40px);background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 20px 50px rgba(0,0,0,.2);display:none;overflow:hidden}
+  #chat.open{display:block}
+  #chat .head{background:var(--gold);color:#fff;padding:14px 16px;font-family:Georgia,serif}
+  #chat .head small{display:block;opacity:.85;font-family:inherit;font-size:12px}
+  #chat .log{padding:14px 16px;max-height:260px;overflow:auto;font-size:14px}
+  .msg{margin:0 0 10px;padding:9px 12px;border-radius:12px;max-width:85%}
+  .bot{background:#f3e9df}
+  .me{background:var(--gold);color:#fff;margin-left:auto}
+  #chat .foot{border-top:1px solid var(--line);padding:10px;display:flex;gap:8px}
+  #chat .foot input{flex:1;border:1px solid var(--line);border-radius:10px;padding:10px}
+  #chat .foot button{border:0;background:var(--gold);color:#fff;border-radius:10px;padding:0 16px;cursor:pointer}
+</style>
+</head>
+<body>
+
+<!-- ponytail: single static file, no build. Set FORM_ENDPOINT + PAY_LINK below to go live. -->
+
+<header>
+  <div class="nav">
+    <div class="brand">Velvet <span>Suite</span></div>
+    <nav class="nav-links">
+      <a href="#suite">The Suite</a>
+      <a href="#services">Extensions</a>
+      <a href="#shop">Shop</a>
+      <a href="#book">Book</a>
+    </nav>
+    <a href="#book" class="btn">Book Now</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <p class="eyebrow">Private Salon Suite</p>
+      <h1>Where your best hair days happen.</h1>
+      <p>A boutique salon suite for luxury hair extensions, color, and care — one client, one stylist, undivided attention.</p>
+      <div class="hero-cta">
+        <a href="#book" class="btn">Reserve a Date — $35</a>
+        <a href="#shop" class="btn ghost">Shop Products</a>
+      </div>
+    </div>
+    <div class="suite-photo">The Velvet Suite</div>
+  </div>
+</section>
+
+<!-- SUITE SHOWCASE -->
+<section id="suite">
+  <div class="wrap">
+    <p class="eyebrow center">Step Inside</p>
+    <h2 class="center">The Suite</h2>
+    <p class="lead center">A calm, private space designed around you — modern styling station, wash lounge, and a curated product bar.</p>
+    <div class="grid g3" style="margin-top:34px">
+      <div class="card"><div class="thumb">Styling Station</div><div class="body"><h3>Styling Station</h3><p class="lead">Pro lighting and a full-length mirror for a true-to-life reveal.</p></div></div>
+      <div class="card"><div class="thumb">Wash Lounge</div><div class="body"><h3>Wash Lounge</h3><p class="lead">Heated massage basin with a spa-grade cleanse and scalp treatment.</p></div></div>
+      <div class="card"><div class="thumb">Product Bar</div><div class="body"><h3>Product Bar</h3><p class="lead">Take-home care hand-picked to match your extensions and color.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXTENSION SERVICES -->
+<section id="services" style="background:#f7eef0">
+  <div class="wrap">
+    <p class="eyebrow center">Hair Extensions</p>
+    <h2 class="center">Extension Services</h2>
+    <p class="lead center">Every install includes a color match, custom cut, and blend. Hair sold separately or bring your own.</p>
+    <div class="grid g3" style="margin-top:34px">
+      <div class="card"><div class="body"><h3>Hand-Tied Wefts</h3><p class="lead">Seamless, natural movement. Full head install &amp; blend.</p><p class="price">from $450</p></div></div>
+      <div class="card"><div class="body"><h3>Tape-In Extensions</h3><p class="lead">Lightweight, reusable, quick turnaround.</p><p class="price">from $280</p></div></div>
+      <div class="card"><div class="body"><h3>K-Tip / Fusion</h3><p class="lead">Strand-by-strand for maximum versatility.</p><p class="price">from $520</p></div></div>
+      <div class="card"><div class="body"><h3>Move-Up / Maintenance</h3><p class="lead">Reposition &amp; refresh every 6–8 weeks.</p><p class="price">from $160</p></div></div>
+      <div class="card"><div class="body"><h3>Color Match &amp; Blend</h3><p class="lead">Custom color so extensions disappear into your hair.</p><p class="price">from $120</p></div></div>
+      <div class="card"><div class="body"><h3>Consultation</h3><p class="lead">30-min plan for length, color, and budget.</p><p class="price">$35 (applied to booking)</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="shop">
+  <div class="wrap">
+    <p class="eyebrow center">Take It Home</p>
+    <h2 class="center">Shop Products</h2>
+    <p class="lead center">Salon-grade care to protect your investment between visits.</p>
+    <div class="grid g3" id="shop-grid" style="margin-top:34px"></div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section id="book">
+  <div class="wrap book-grid">
+    <div>
+      <p class="eyebrow">Reserve Your Chair</p>
+      <h2>Book a Date</h2>
+      <p class="lead">Pick a date and service. A <b>$35 non-refundable booking fee</b> holds your appointment and is applied to your service total.</p>
+      <div class="fee">
+        <b>About the $35 fee:</b> First-time clients hold their appointment with a <b>non-refundable</b>
+        $35 deposit, credited toward your service. <b>Returning clients book with no deposit</b> — we
+        already know you'll be here. No-shows and same-day cancellations forfeit the deposit.
+      </div>
+    </div>
+    <form id="book-form">
+      <label>Full name<input name="name" required autocomplete="name" /></label>
+      <label>Email<input name="email" type="email" required autocomplete="email" /></label>
+      <label>Phone<input name="phone" type="tel" required autocomplete="tel" /></label>
+      <label>Have you booked with us before?</label>
+      <div style="display:flex;gap:18px;margin-top:2px">
+        <label style="display:flex;align-items:center;gap:7px;font-weight:400;margin:0"><input type="radio" name="client" value="new" required style="width:auto" /> First time</label>
+        <label style="display:flex;align-items:center;gap:7px;font-weight:400;margin:0"><input type="radio" name="client" value="returning" style="width:auto" /> Returning client</label>
+      </div>
+      <label>Service
+        <select name="service" required>
+          <option value="">Choose a service…</option>
+          <option>Hand-Tied Wefts</option>
+          <option>Tape-In Extensions</option>
+          <option>K-Tip / Fusion</option>
+          <option>Move-Up / Maintenance</option>
+          <option>Color Match &amp; Blend</option>
+          <option>Consultation</option>
+        </select>
+      </label>
+      <label>Preferred date<input name="date" type="date" required /></label>
+      <label>Notes (optional)<textarea name="notes" rows="2"></textarea></label>
+      <p style="font-size:13px;color:var(--muted)">Submitting sends your request. First-time clients confirm with the $35 deposit; returning clients just get a confirmation.</p>
+      <button class="btn" type="submit" style="margin-top:8px;width:100%">Request Your Date</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="brand" style="color:#fff">Velvet <span style="color:var(--gold)">Suite</span></div>
+    <p>Private salon suite · Hair extensions · Color &amp; care<br>
+    Questions? Use the chat, bottom-right — we'll confirm by email or phone.</p>
+  </div>
+</footer>
+
+<!-- CHAT -->
+<button id="chat-toggle" aria-label="Open chat">💬</button>
+<div id="chat" role="dialog" aria-label="Chat with Velvet Suite">
+  <div class="head">Chat with us<small>We'll grab your info and reach out to confirm.</small></div>
+  <div class="log" id="chat-log"></div>
+  <div class="foot">
+    <input id="chat-input" placeholder="Type here…" autocomplete="off" />
+    <button id="chat-send">Send</button>
+  </div>
+</div>
+
+<script>
+/* ---- CONFIG: drop in your own endpoints to go fully live ---- */
+const FORM_ENDPOINT = ""; // e.g. "https://formspree.io/f/xxxxxxx" — empty = mailto fallback
+const CONTACT_EMAIL = "hello@velvetsuite.example";
+const PAY_LINK = "";      // e.g. Stripe/PayPal $35 payment link — empty = shows notice
+
+/* Send a lead. Returns true if handed off to an endpoint, false if we fell back to mailto. */
+async function sendLead(subject, data){
+  if (FORM_ENDPOINT){
+    await fetch(FORM_ENDPOINT, {
+      method:"POST",
+      headers:{"Content-Type":"application/json", Accept:"application/json"},
+      body: JSON.stringify({_subject:subject, ...data})
+    });
+    return true;
+  }
+  // ponytail: no backend/account required — open a pre-filled email to the salon.
+  const body = Object.entries(data).map(([k,v]) => k+": "+v).join("\n");
+  window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  return false;
+}
+
+/* ---- Products ---- */
+const PRODUCTS = [
+  ["Bond Repair Shampoo","Sulfate-free cleanse safe for extensions.",32],
+  ["Hydrating Conditioner","Weightless slip, no residue at the bonds.",34],
+  ["Heat Shield Spray","Thermal protection up to 450°F.",26],
+  ["Extension Brush","Looped bristles that won't snag wefts.",18],
+  ["Silk Pillowcase","Less friction, longer-lasting installs.",45],
+  ["Leave-In Treatment","Daily moisture + detangle.",28],
+];
+document.getElementById("shop-grid").innerHTML = PRODUCTS.map(([n,d,p]) => `
+  <div class="card">
+    <div class="thumb">${n}</div>
+    <div class="body">
+      <h3>${n}</h3><p class="lead">${d}</p>
+      <p class="price">$${p}</p>
+      <button class="btn add" data-name="${n}">Add to cart</button>
+    </div>
+  </div>`).join("");
+
+document.getElementById("shop-grid").addEventListener("click", e => {
+  const b = e.target.closest(".add"); if(!b) return;
+  sendLead("Product order — "+b.dataset.name, {product:b.dataset.name});
+  b.textContent = "Added — we'll follow up ✓"; b.disabled = true;
+});
+
+/* ---- Booking ---- */
+document.getElementById("book-form").addEventListener("submit", async e => {
+  e.preventDefault();
+  const d = Object.fromEntries(new FormData(e.target).entries());
+  const isNew = d.client === "new";
+  await sendLead((isNew ? "New-client booking" : "Returning booking")+" — "+d.service, d);
+  if (isNew){
+    if (PAY_LINK){ window.open(PAY_LINK, "_blank"); }
+    else { alert("Request sent! As a first-time client, your spot is held with the $35 non-refundable deposit — the salon will text/email you a secure payment link to confirm. It's credited to your service."); }
+  } else {
+    alert("Welcome back! Request sent — no deposit needed. We'll reach out to confirm your time. 💕");
+  }
+  e.target.reset();
+});
+
+/* ---- Chat: capture name -> email -> phone, then hand off ---- */
+const chat = {step:0, data:{}, order:[
+  ["name","Hi! 👋 What's your name?"],
+  ["email","Lovely to meet you, {name}. What's the best email to reach you?"],
+  ["phone","Great — and a phone number for a quick confirmation text?"],
+]};
+const log = document.getElementById("chat-log");
+function bot(t){ log.insertAdjacentHTML("beforeend", `<div class="msg bot">${t}</div>`); log.scrollTop=log.scrollHeight; }
+function me(t){ log.insertAdjacentHTML("beforeend", `<div class="msg me">${t}</div>`); log.scrollTop=log.scrollHeight; }
+function ask(){ bot(chat.order[chat.step][1].replace("{name}", chat.data.name||"")); }
+
+document.getElementById("chat-toggle").onclick = () => {
+  const el = document.getElementById("chat");
+  el.classList.toggle("open");
+  if (el.classList.contains("open") && log.childElementCount===0) ask();
+};
+
+function validField(key, val){
+  if (key==="email") return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(val);
+  if (key==="phone") return (val.match(/\d/g)||[]).length >= 7;
+  return val.trim().length > 0;
+}
+async function chatSubmit(){
+  const input = document.getElementById("chat-input");
+  const val = input.value.trim(); if(!val) return;
+  const [key] = chat.order[chat.step];
+  if (!validField(key, val)){ me(val); bot("Hmm, that doesn't look like a valid "+key+" — mind trying again?"); input.value=""; return; }
+  me(val); chat.data[key]=val; input.value=""; chat.step++;
+  if (chat.step < chat.order.length){ ask(); return; }
+  bot("Perfect, thank you! We'll reach out to confirm your appointment shortly. 💕");
+  await sendLead("New chat lead", chat.data);
+}
+document.getElementById("chat-send").onclick = chatSubmit;
+document.getElementById("chat-input").addEventListener("keydown", e => { if(e.key==="Enter") chatSubmit(); });
+
+/* ---- Holiday themes ----
+   Add an entry and it goes live automatically during its MM-DD window.
+   Preview any theme anytime with ?theme=<id> (e.g. ?theme=july4).
+   ponytail: the calendar does the "calling" — no manual switch, no theme engine. */
+const HOLIDAY_THEMES = {
+  july4: {
+    banner: "🦅  ⭐ Happy 4th of July ⭐  —  book your holiday glam!  🎆",
+    from: "07-01", to: "07-07",
+    vars: { "--gold":"#e23b4e", "--gold-dk":"#ff8a97", "--rose":"#3c3b6e", "--bg":"transparent",
+            "--ink":"#f2f3fb", "--muted":"#c9cee6", "--card":"rgba(255,255,255,.08)", "--line":"rgba(255,255,255,.22)" },
+    // navy field up top, red/white stripe bar along the bottom — the flag, in one background.
+    bannerCss: "text-align:center;padding:11px 14px 15px;font-size:15px;font-weight:600;color:#fff;letter-spacing:.3px;" +
+      "background:repeating-linear-gradient(90deg,#b22234 0 34px,#fff 34px 68px) bottom/100% 6px no-repeat,#3c3b6e;",
+    // Canva-style 4th-of-July look: navy starfield hero, star accents, flag-tone blocks. Scoped to .theme-july4.
+    css: `
+      /* balloon image = whole-page background, scrim keeps text readable */
+      html.theme-july4 body{
+        background:
+          linear-gradient(rgba(14,20,46,.80),rgba(14,20,46,.88)),
+          url('assets/july4/3896546.jpg') center top/cover fixed no-repeat;
+      }
+      /* every section transparent so the balloons show through */
+      html.theme-july4 .hero,
+      html.theme-july4 #suite,
+      html.theme-july4 #services,
+      html.theme-july4 #shop,
+      html.theme-july4 #book{ background:transparent; border-color:var(--line); }
+      html.theme-july4 header{ background:rgba(14,20,46,.55); border-bottom-color:var(--line); }
+      html.theme-july4 footer{ background:rgba(8,12,30,.55); }
+      html.theme-july4 .card{ backdrop-filter:blur(3px); }
+      html.theme-july4 .suite-photo{ background:rgba(16,23,52,.25);border:1px solid rgba(255,255,255,.4);box-shadow:0 20px 50px rgba(0,0,0,.35); }
+      html.theme-july4 .thumb{ background:linear-gradient(135deg,#3c3b6e,#b22234); }
+      html.theme-july4 .eyebrow{ color:#ffc9c9; }
+      html.theme-july4 .eyebrow::before{ content:"★ "; color:#ff6b6b; }
+      html.theme-july4 .hero h1::after{ content:" ✦"; color:#ffd94d; }
+      /* keep form fields opaque so typed text stays legible */
+      html.theme-july4 form input,
+      html.theme-july4 form select,
+      html.theme-july4 form textarea{ background:rgba(255,255,255,.94); color:#1a1a1a; }
+      html.theme-july4 .fee{ background:rgba(255,255,255,.10); border-color:var(--line); }
+      html.theme-july4 .fee b{ color:#ffd0d0; }
+      html.theme-july4 .btn.ghost{ color:#fff; border-color:#fff; }
+      /* Extensions section only: the flag — 13 stripes + a star-canton SVG, scrim over it for legible text */
+      html.theme-july4 #services{
+        background:
+          linear-gradient(rgba(10,14,34,.55),rgba(10,14,34,.55)),
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 70'%3E%3Cdefs%3E%3Cpattern id='s' width='16.6' height='14' patternUnits='userSpaceOnUse'%3E%3Ccircle cx='8.3' cy='7' r='2.2' fill='white'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100' height='70' fill='%233c3b6e'/%3E%3Crect width='100' height='70' fill='url(%23s)'/%3E%3C/svg%3E") left top/42% 53.85% no-repeat,
+          repeating-linear-gradient(180deg,#b22234 0 7.69%,#fff 7.69% 15.38%);
+      }
+  },
+  // Other federal holidays: palette + emoji banner only. Floating holidays (MLK, Presidents,
+  // Memorial, Labor, Indigenous, Thanksgiving) use a week window covering every date they can land on.
+  // Add a `css`/`bannerCss` field to any of these to give it the full july4 treatment later.
+  newyear:      { banner:"🥂 Happy New Year — new year, new look! ✨",              from:"01-01", to:"01-03", vars:{ "--gold":"#caa73c","--gold-dk":"#8a6d1a","--rose":"#1a1a1a","--bg":"#fbf7ee" } },
+  mlk:          { banner:"Honoring the legacy of Dr. Martin Luther King Jr.",       from:"01-15", to:"01-21", vars:{ "--gold":"#8a6d3b","--gold-dk":"#5c4a28","--rose":"#3b2a5a","--bg":"#f7f4ef" } },
+  presidents:   { banner:"🇺🇸 Presidents' Day",                                     from:"02-15", to:"02-21", vars:{ "--gold":"#b22234","--gold-dk":"#7a1721","--rose":"#3c3b6e","--bg":"#f6f7fb" } },
+  memorial:     { banner:"🇺🇸 Remembering those who served — Memorial Day",         from:"05-25", to:"05-31", vars:{ "--gold":"#b22234","--gold-dk":"#7a1721","--rose":"#3c3b6e","--bg":"#f6f7fb" } },
+  juneteenth:   { banner:"✊🏾 Juneteenth — Freedom Day",                            from:"06-17", to:"06-19", vars:{ "--gold":"#e8b923","--gold-dk":"#a9491f","--rose":"#1f7a3d","--bg":"#fbf6ef" } },
+  labor:        { banner:"🛠️ Happy Labor Day",                                      from:"09-01", to:"09-07", vars:{ "--gold":"#2f6db0","--gold-dk":"#1f4d7a","--rose":"#b22234","--bg":"#f4f7fb" } },
+  indigenous:   { banner:"🪶 Indigenous Peoples' Day",                              from:"10-08", to:"10-14", vars:{ "--gold":"#b5651d","--gold-dk":"#7a4212","--rose":"#3a6b35","--bg":"#faf5ee" } },
+  veterans:     { banner:"🎖️ Honoring all who served — Veterans Day",              from:"11-08", to:"11-11", vars:{ "--gold":"#b22234","--gold-dk":"#7a1721","--rose":"#3c3b6e","--bg":"#f6f7fb" } },
+  thanksgiving: { banner:"🦃 Happy Thanksgiving — grateful for you!",              from:"11-22", to:"11-28", vars:{ "--gold":"#c9702a","--gold-dk":"#8a4a17","--rose":"#7a3b12","--bg":"#fbf5ec" } },
+  christmas:    { banner:"🎄 Merry Christmas & Happy Holidays!",                    from:"12-15", to:"12-26", vars:{ "--gold":"#c1121f","--gold-dk":"#7a0e18","--rose":"#0b6623","--bg":"#f6faf6" } }
+};
+const pad2 = n => String(n).padStart(2,"0");
+// ponytail: string compare works for same-year windows; a Dec→Jan holiday needs a wrap check — add then.
+const inWindow = (mmdd, from, to) => mmdd >= from && mmdd <= to;
+const themeForDate = mmdd => Object.keys(HOLIDAY_THEMES).find(id => inWindow(mmdd, HOLIDAY_THEMES[id].from, HOLIDAY_THEMES[id].to)) || null;
+function activeThemeId(){
+  const forced = new URLSearchParams(location.search).get("theme");  // ?theme=<key> forces any theme, any day
+  if (forced) return HOLIDAY_THEMES[forced] ? forced : null;
+  const d = new Date();
+  return themeForDate(pad2(d.getMonth()+1)+"-"+pad2(d.getDate()));
+}
+(function applyHolidayTheme(){
+  const id = activeThemeId(); if (!id) return;
+  const t = HOLIDAY_THEMES[id];
+  document.documentElement.classList.add("theme-"+id);
+  for (const [k,v] of Object.entries(t.vars)) document.documentElement.style.setProperty(k, v);
+  if (t.css){ const s = document.createElement("style"); s.textContent = t.css; document.head.appendChild(s); }
+  if (t.banner){
+    const b = document.createElement("div");
+    b.textContent = t.banner;
+    b.style.cssText = t.bannerCss || "background:var(--gold);color:#fff;text-align:center;padding:9px 14px;font-size:14px;letter-spacing:.3px";
+    document.body.prepend(b);
+  }
+})();
+
+/* ---- self-check (open console): validators + theme windows must behave ---- */
+console.assert(validField("email","a@b.co") && !validField("email","nope"), "email validation broken");
+console.assert(validField("phone","(555) 123-4567") && !validField("phone","12"), "phone validation broken");
+console.assert(validField("name","Ada") && !validField("name","   "), "name validation broken");
+console.assert(themeForDate("07-04")==="july4" && themeForDate("07-01")==="july4" && themeForDate("07-07")==="july4", "july4 window broken");
+console.assert(themeForDate("12-25")==="christmas" && themeForDate("11-11")==="veterans" && themeForDate("01-01")==="newyear", "holiday windows broken");
+console.assert(themeForDate("08-01")===null, "off-window should have no theme");
+</script>
+</body>
+</html>
