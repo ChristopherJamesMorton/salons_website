@@ -21,8 +21,18 @@
   .btn.ghost{background:transparent;color:var(--gold-dk);border:1px solid var(--gold)}
   section{padding:64px 0}
   #services{background:#f7eef0}
-  /* When any holiday theme is active, sections go transparent so the themed background shows through */
+  /* When any holiday theme is active: photo background shows through, text goes light, cards go glass */
+  html.themed{--ink:#f2f3fb;--muted:#cfd3e6;--card:rgba(255,255,255,.08);--line:rgba(255,255,255,.22)}
   html.themed .hero,html.themed #suite,html.themed #services,html.themed #shop,html.themed #book{background:transparent}
+  html.themed header{background:rgba(14,20,46,.55);border-bottom-color:var(--line)}
+  html.themed footer{background:rgba(8,12,30,.5)}
+  html.themed .card{backdrop-filter:blur(3px)}
+  html.themed .suite-photo{border:1px solid rgba(255,255,255,.4);box-shadow:0 20px 50px rgba(0,0,0,.35)}
+  html.themed .eyebrow{color:#ffd9d9}
+  html.themed .hero h1::after{content:" ✦";color:#ffd94d}
+  html.themed form input,html.themed form select,html.themed form textarea{background:rgba(255,255,255,.94);color:#1a1a1a}
+  html.themed .fee{background:rgba(255,255,255,.1);border-color:var(--line)}
+  html.themed .btn.ghost{color:#fff;border-color:#fff}
   .eyebrow{color:var(--gold-dk);text-transform:uppercase;letter-spacing:3px;font-size:12px;margin:0 0 8px}
 
   /* header */
@@ -406,21 +416,14 @@ function activeThemeId(){
 }
 /* ---- Every holiday = distinct background + banner + animation. One engine, zero assets.
    july4 keeps its photo background (set in its `css`); the rest get a themed gradient here. */
+const _scrim = "linear-gradient(rgba(14,20,46,.72),rgba(14,20,46,.84)),";
+const _bg = f => _scrim + "url('assets/holidays/" + f + ".jpg') center/cover fixed no-repeat";
 const THEME_BG = {
-  newyear:      "linear-gradient(160deg,#fff8e6,#f0e2bd)",
-  mlk:          "linear-gradient(160deg,#f4eefc,#e6dbf2)",
-  presidents:   "linear-gradient(160deg,#eef2fb,#dbe4f4)",
-  memorial:     "linear-gradient(160deg,#eef2fb,#dfe7f3)",
-  juneteenth:   "linear-gradient(160deg,#fdeee0,#f4d8bd)",
-  labor:        "linear-gradient(160deg,#eaf1fb,#d5e3f5)",
-  indigenous:   "linear-gradient(160deg,#f7efe3,#ead9bf)",
-  veterans:     "linear-gradient(160deg,#eef2fb,#dfe7f3)",
-  thanksgiving: "linear-gradient(160deg,#fdf0dc,#f3d4a8)",
-  christmas:    "linear-gradient(160deg,#eef7ef,#d3e9d4)",
-  valentines:   "linear-gradient(160deg,#ffe4ec,#f6c7d8)",
-  stpatrick:    "linear-gradient(160deg,#e9f6ea,#c9ebcc)",
-  mothers:      "linear-gradient(160deg,#ffe9f0,#f4cfe0)",
-  halloween:    "linear-gradient(160deg,#f8e8d3,#ead0ac)"
+  newyear:_bg("newyear"), valentines:_bg("valentines"), stpatrick:_bg("stpatrick"),
+  mothers:_bg("mothers"), memorial:_bg("memorial"), juneteenth:_bg("juneteenth"),
+  labor:_bg("labor"), indigenous:_bg("indigenous"), veterans:_bg("veterans"),
+  thanksgiving:_bg("thanksgiving"), christmas:_bg("christmas"), halloween:_bg("halloween"),
+  presidents:_bg("presidents"), mlk:_bg("mlk")
 };
 const THEME_EFFECTS = {
   july4:        { type:"fireworks" },
@@ -488,7 +491,7 @@ function startEffect(fx){
   const t = HOLIDAY_THEMES[id];
   document.documentElement.classList.add("theme-"+id, "themed");
   for (const [k,v] of Object.entries(t.vars)) document.documentElement.style.setProperty(k, v);
-  if (THEME_BG[id]) document.body.style.background = THEME_BG[id] + " fixed";
+  if (THEME_BG[id]) document.body.style.background = THEME_BG[id];
   if (t.css){ const s = document.createElement("style"); s.textContent = t.css; document.head.appendChild(s); }
   if (t.banner){
     const b = document.createElement("div");
