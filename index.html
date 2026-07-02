@@ -375,7 +375,12 @@ const HOLIDAY_THEMES = {
   indigenous:   { banner:"🪶 Indigenous Peoples' Day",                              from:"10-08", to:"10-14", vars:{ "--gold":"#b5651d","--gold-dk":"#7a4212","--rose":"#3a6b35","--bg":"#faf5ee" } },
   veterans:     { banner:"🎖️ Honoring all who served — Veterans Day",              from:"11-08", to:"11-11", vars:{ "--gold":"#b22234","--gold-dk":"#7a1721","--rose":"#3c3b6e","--bg":"#f6f7fb" } },
   thanksgiving: { banner:"🦃 Happy Thanksgiving — grateful for you!",              from:"11-22", to:"11-28", vars:{ "--gold":"#c9702a","--gold-dk":"#8a4a17","--rose":"#7a3b12","--bg":"#fbf5ec" } },
-  christmas:    { banner:"🎄 Merry Christmas & Happy Holidays!",                    from:"12-15", to:"12-26", vars:{ "--gold":"#c1121f","--gold-dk":"#7a0e18","--rose":"#0b6623","--bg":"#f6faf6" } }
+  christmas:    { banner:"🎄 Merry Christmas & Happy Holidays!",                    from:"12-15", to:"12-26", vars:{ "--gold":"#c1121f","--gold-dk":"#7a0e18","--rose":"#0b6623","--bg":"#f6faf6" } },
+  // Salon favorites (not federal, but big for bookings). Windows chosen to not overlap the federal ones.
+  valentines:   { banner:"💕 Valentine's Day — treat yourself (or someone) to a fresh look!", from:"02-10", to:"02-14", vars:{ "--gold":"#e0567a","--gold-dk":"#b03a5b","--rose":"#c0392b","--bg":"#fdf1f4" } },
+  stpatrick:    { banner:"🍀 Happy St. Patrick's Day!",                            from:"03-15", to:"03-17", vars:{ "--gold":"#2e8b57","--gold-dk":"#1f6b41","--rose":"#c9a227","--bg":"#f0f7f0" } },
+  mothers:      { banner:"💐 Happy Mother's Day — she deserves the chair.",       from:"05-08", to:"05-14", vars:{ "--gold":"#d46a8a","--gold-dk":"#a84c6a","--rose":"#7a9b6b","--bg":"#fdf2f5" } },
+  halloween:    { banner:"🎃 Happy Halloween — spooky-good hair!",                from:"10-26", to:"10-31", vars:{ "--gold":"#e6791f","--gold-dk":"#a8500f","--rose":"#5b2a86","--bg":"#f7f1ea" } }
 };
 const pad2 = n => String(n).padStart(2,"0");
 // ponytail: string compare works for same-year windows; a Dec→Jan holiday needs a wrap check — add then.
