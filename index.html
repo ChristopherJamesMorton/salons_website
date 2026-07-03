@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Velvet Suite — Salon &amp; Hair Extensions</title>
+<title>L Creations Extension Studio — Hair Extensions</title>
 <style>
   :root{
     --bg:#faf7f4; --ink:#2b2b2b; --muted:#7a6f68;
@@ -100,7 +100,7 @@
   .fx-layer{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:55}
   .fx-fall{position:absolute;top:0;will-change:transform,opacity;animation-name:fx-fall;animation-timing-function:linear;animation-iteration-count:infinite}
   @keyframes fx-fall{0%{transform:translateY(-12vh) translateX(0) rotate(0);opacity:0}8%{opacity:1}90%{opacity:.95}100%{transform:translateY(112vh) translateX(var(--drift)) rotate(var(--spin));opacity:0}}
-  .fx-spark{position:absolute;width:6px;height:6px;border-radius:50%;will-change:transform,opacity;animation:fx-spark 950ms ease-out forwards;box-shadow:0 0 7px currentColor}
+  .fx-spark{position:absolute;width:9px;height:9px;border-radius:50%;will-change:transform,opacity;animation:fx-spark 1000ms ease-out forwards;box-shadow:0 0 14px 2px currentColor}
   @keyframes fx-spark{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--tx),var(--ty)) scale(.35);opacity:0}}
   @media (prefers-reduced-motion: reduce){.fx-layer{display:none}}
 </style>
@@ -111,7 +111,7 @@
 
 <header>
   <div class="nav">
-    <div class="brand">Velvet <span>Suite</span></div>
+    <div class="brand">L Creations <span>Extension Studio</span></div>
     <nav class="nav-links">
       <a href="#suite">The Suite</a>
       <a href="#services">Extensions</a>
@@ -133,7 +133,7 @@
         <a href="#shop" class="btn ghost">Shop Products</a>
       </div>
     </div>
-    <div class="suite-photo">The Velvet Suite</div>
+    <div class="suite-photo">L Creations Extension Studio</div>
   </div>
 </section>
 
@@ -221,7 +221,7 @@
 
 <footer>
   <div class="wrap">
-    <div class="brand" style="color:#fff">Velvet <span style="color:var(--gold)">Suite</span></div>
+    <div class="brand" style="color:#fff">L Creations <span style="color:var(--gold)">Extension Studio</span></div>
     <p>Private salon suite · Hair extensions · Color &amp; care<br>
     Questions? Use the chat, bottom-right — we'll confirm by email or phone.</p>
   </div>
@@ -229,7 +229,7 @@
 
 <!-- CHAT -->
 <button id="chat-toggle" aria-label="Open chat">💬</button>
-<div id="chat" role="dialog" aria-label="Chat with Velvet Suite">
+<div id="chat" role="dialog" aria-label="Chat with L Creations Extension Studio">
   <div class="head">Chat with us<small>We'll grab your info and reach out to confirm.</small></div>
   <div class="log" id="chat-log"></div>
   <div class="foot">
@@ -241,7 +241,7 @@
 <script>
 /* ---- CONFIG: drop in your own endpoints to go fully live ---- */
 const FORM_ENDPOINT = ""; // e.g. "https://formspree.io/f/xxxxxxx" — empty = mailto fallback
-const CONTACT_EMAIL = "hello@velvetsuite.example";
+const CONTACT_EMAIL = "hello@lcreations.example";
 const PAY_LINK = "";      // e.g. Stripe/PayPal $35 payment link — empty = shows notice
 
 /* Send a lead. Returns true if handed off to an endpoint, false if we fell back to mailto. */
@@ -444,7 +444,8 @@ const THEME_EFFECTS = {
   juneteenth:   { type:"fall", items:["⭐"], slow:true }
 };
 function startEffect(fx){
-  if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return; // accessibility
+  // ponytail: animations always play (owner wants them visible). Reduced-motion users can add
+  // `if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;` back if desired.
   const layer = document.createElement("div");
   layer.className = "fx-layer";
   document.body.appendChild(layer);
@@ -468,11 +469,11 @@ function startEffect(fx){
     const colors = ["#ff5252","#ffffff","#4d79ff","#ffd447","#ff8ac2"];
     const burst = () => {
       const x = 15 + Math.random()*70, y = 12 + Math.random()*42;
-      const col = colors[Math.floor(Math.random()*colors.length)], n = 22;
+      const col = colors[Math.floor(Math.random()*colors.length)], n = 28;
       for (let i=0;i<n;i++){
         const p = document.createElement("span");
         p.className = "fx-spark";
-        const ang = (i/n)*2*Math.PI, dist = 60 + Math.random()*70;
+        const ang = (i/n)*2*Math.PI, dist = 80 + Math.random()*90;
         p.style.left = x + "vw"; p.style.top = y + "vh";
         p.style.color = col; p.style.background = col;
         p.style.setProperty("--tx", Math.cos(ang)*dist + "px");
@@ -482,7 +483,7 @@ function startEffect(fx){
       }
     };
     burst();
-    setInterval(burst, 1100);
+    setInterval(burst, 850);
   }
 }
 
