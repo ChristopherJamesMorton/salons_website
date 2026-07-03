@@ -288,19 +288,22 @@
    For HANDS-OFF delivery (no visitor mail app), make a free form at
    formspree.io with notification email = k_morton312@yahoo.com, then paste
    its endpoint into FORM_ENDPOINT below. Until then, mailto fallback is used. */
-const FORM_ENDPOINT = ""; // e.g. "https://formspree.io/f/xxxxxxx" — empty = mailto fallback
-const CONTACT_EMAIL = "k_morton312@yahoo.com";
+const FORM_ENDPOINT = "https://formspree.io/f/mqevwakk"; // Formspree -> k_morton312@yahoo.com
+const CONTACT_EMAIL = "k_morton312@yahoo.com";           // mailto fallback if Formspree POST fails
 const PAY_LINK = "";      // Stripe/Square $35 deposit payment link — empty = shows notice
 
 /* Send a lead. Returns true if handed off to an endpoint, false if we fell back to mailto. */
 async function sendLead(subject, data){
   if (FORM_ENDPOINT){
-    await fetch(FORM_ENDPOINT, {
-      method:"POST",
-      headers:{"Content-Type":"application/json", Accept:"application/json"},
-      body: JSON.stringify({_subject:subject, ...data})
-    });
-    return true;
+    try {
+      const r = await fetch(FORM_ENDPOINT, {
+        method:"POST",
+        headers:{"Content-Type":"application/json", Accept:"application/json"},
+        body: JSON.stringify({_subject:subject, ...data})
+      });
+      if (r.ok) return true;      // delivered to Formspree -> inbox
+    } catch (e){ /* network error — fall through to mailto */ }
+    // Formspree failed: don't lose the lead, fall back to a pre-filled email.
   }
   // ponytail: no backend/account required — open a pre-filled email to the salon.
   const body = Object.entries(data).map(([k,v]) => k+": "+v).join("\n");
