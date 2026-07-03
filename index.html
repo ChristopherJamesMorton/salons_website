@@ -250,10 +250,14 @@
 </div>
 
 <script>
-/* ---- CONFIG: drop in your own endpoints to go fully live ---- */
+/* ---- CONFIG: drop in your own endpoints to go fully live ----
+   Leads (chat, booking, product inquiries) route to CONTACT_EMAIL.
+   For HANDS-OFF delivery (no visitor mail app), make a free form at
+   formspree.io with notification email = k_morton312@yahoo.com, then paste
+   its endpoint into FORM_ENDPOINT below. Until then, mailto fallback is used. */
 const FORM_ENDPOINT = ""; // e.g. "https://formspree.io/f/xxxxxxx" — empty = mailto fallback
-const CONTACT_EMAIL = "hello@lcreations.example";
-const PAY_LINK = "";      // e.g. Stripe/PayPal $35 payment link — empty = shows notice
+const CONTACT_EMAIL = "k_morton312@yahoo.com";
+const PAY_LINK = "";      // Stripe/Square $35 deposit payment link — empty = shows notice
 
 /* Send a lead. Returns true if handed off to an endpoint, false if we fell back to mailto. */
 async function sendLead(subject, data){
@@ -271,29 +275,35 @@ async function sendLead(subject, data){
   return false;
 }
 
-/* ---- Products ---- */
+/* ---- Products ----
+   Last field = payment link (Stripe/Square hosted checkout). Paste each
+   product's link and its Buy button charges money. Empty link = the button
+   sends an inquiry to CONTACT_EMAIL instead, so nothing breaks before setup. */
 const PRODUCTS = [
-  ["Bond Repair Shampoo","Sulfate-free cleanse safe for extensions.",32,"p-shampoo.jpg"],
-  ["Hydrating Conditioner","Weightless slip, no residue at the bonds.",34,"p-conditioner.jpg"],
-  ["Heat Shield Spray","Thermal protection up to 450°F.",26,"p-heatspray.jpg"],
-  ["Extension Brush","Looped bristles that won't snag wefts.",18,"p-brush.jpg"],
-  ["Silk Pillowcase","Less friction, longer-lasting installs.",45,"p-pillow.jpg"],
-  ["Leave-In Treatment","Daily moisture + detangle.",28,"p-leavein.jpg"],
+  ["Bond Repair Shampoo","Sulfate-free cleanse safe for extensions.",32,"p-shampoo.jpg",""],
+  ["Hydrating Conditioner","Weightless slip, no residue at the bonds.",34,"p-conditioner.jpg",""],
+  ["Heat Shield Spray","Thermal protection up to 450°F.",26,"p-heatspray.jpg",""],
+  ["Extension Brush","Looped bristles that won't snag wefts.",18,"p-brush.jpg",""],
+  ["Silk Pillowcase","Less friction, longer-lasting installs.",45,"p-pillow.jpg",""],
+  ["Leave-In Treatment","Daily moisture + detangle.",28,"p-leavein.jpg",""],
 ];
-document.getElementById("shop-grid").innerHTML = PRODUCTS.map(([n,d,p,img]) => `
+document.getElementById("shop-grid").innerHTML = PRODUCTS.map(([n,d,p,img,buy]) => `
   <div class="card">
     <div class="thumb" style="background-image:url('assets/salon/${img}')"></div>
     <div class="body">
       <h3>${n}</h3><p class="lead">${d}</p>
       <p class="price">$${p}</p>
-      <button class="btn add" data-name="${n}">Add to cart</button>
+      ${buy
+        ? `<a class="btn" href="${buy}" target="_blank" rel="noopener">Buy — $${p}</a>`
+        : `<button class="btn buy" data-name="${n}">Buy — $${p}</button>`}
     </div>
   </div>`).join("");
 
+// Fallback for products without a payment link yet: send an inquiry to the inbox.
 document.getElementById("shop-grid").addEventListener("click", e => {
-  const b = e.target.closest(".add"); if(!b) return;
+  const b = e.target.closest("button.buy"); if(!b) return;
   sendLead("Product order — "+b.dataset.name, {product:b.dataset.name});
-  b.textContent = "Added — we'll follow up ✓"; b.disabled = true;
+  b.textContent = "Requested — we'll follow up ✓"; b.disabled = true;
 });
 
 /* ---- Booking ---- */
