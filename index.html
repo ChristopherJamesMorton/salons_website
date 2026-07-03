@@ -22,9 +22,10 @@
   .btn.ghost{background:transparent;color:var(--gold-dk);border:1px solid var(--gold)}
   section{padding:64px 0}
   #services{background:#f7eef0}
+  #microlines{background:#f3eef6}
   /* When any holiday theme is active: photo background shows through, text goes light, cards go glass */
   html.themed{--ink:#f2f3fb;--muted:#cfd3e6;--card:rgba(255,255,255,.08);--line:rgba(255,255,255,.22)}
-  html.themed .hero,html.themed #suite,html.themed #services,html.themed #shop,html.themed #book{background:transparent}
+  html.themed .hero,html.themed #suite,html.themed #services,html.themed #microlines,html.themed #shop,html.themed #book,html.themed #facebook{background:transparent}
   html.themed header{background:rgba(14,20,46,.55);border-bottom-color:var(--line)}
   html.themed footer{background:rgba(8,12,30,.5)}
   html.themed .card{backdrop-filter:blur(3px)}
@@ -116,6 +117,7 @@
     <nav class="nav-links">
       <a href="#suite">The Suite</a>
       <a href="#services">Extensions</a>
+      <a href="#microlines">MicroLines</a>
       <a href="#shop">Shop</a>
       <a href="#book">Book</a>
       <a href="https://www.facebook.com/LCreationsExtensionStudio/" target="_blank" rel="noopener">Facebook</a>
@@ -171,6 +173,21 @@
   </div>
 </section>
 
+<!-- HAIRDREAMS MICROLINES -->
+<section id="microlines">
+  <div class="wrap">
+    <p class="eyebrow center">Hairdreams&reg; MicroLines</p>
+    <h2 class="center">Fuller hair, right where it's thinning</h2>
+    <p class="lead center">MicroLines is Hairdreams' gentle answer to thinning hair — an ultra-fine, breathable hair system with real human hair individually knotted in, attached to your own hair to add natural density. No surgery, no glue, no scalp adhesives, no daily removal. As an elite Hairdreams salon, we custom-fit, cut, and color it to disappear into your hair.</p>
+    <div class="grid g3" style="margin-top:34px">
+      <div class="card"><div class="body"><h3>Undetectable</h3><p class="lead">The ultra-fine base vanishes into your own hair — part it, style it, wear it up. No one can tell.</p></div></div>
+      <div class="card"><div class="body"><h3>Gentle &amp; non-surgical</h3><p class="lead">Bonded to your existing hair, never your scalp. No heat, no tape, no chemicals — comfortable day and night.</p></div></div>
+      <div class="card"><div class="body"><h3>Real human hair</h3><p class="lead">Color-matched and cut to blend seamlessly. Sleep, shower, and style in it 24/7, and re-fit as your hair grows.</p></div></div>
+    </div>
+    <p class="center" style="margin-top:28px"><a href="#book" class="btn">Book a MicroLines consult — $35</a></p>
+  </div>
+</section>
+
 <!-- PRODUCTS -->
 <section id="shop">
   <div class="wrap">
@@ -219,6 +236,22 @@
       <p style="font-size:13px;color:var(--muted)">Submitting sends your request. First-time clients confirm with the $35 deposit; returning clients just get a confirmation.</p>
       <button class="btn" type="submit" style="margin-top:8px;width:100%">Request Your Date</button>
     </form>
+  </div>
+</section>
+
+<!-- FACEBOOK -->
+<section id="facebook">
+  <div class="wrap">
+    <p class="eyebrow center">Fresh From The Studio</p>
+    <h2 class="center">See our latest work</h2>
+    <p class="lead center">Before &amp; afters, new installs, and studio news — straight from our Facebook.</p>
+    <div style="display:flex;justify-content:center;margin-top:28px">
+      <iframe title="L Creations Extension Studio on Facebook"
+        src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FLCreationsExtensionStudio&tabs=timeline&width=500&height=640&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+        width="500" height="640" style="border:none;overflow:hidden;max-width:100%;border-radius:14px;background:#fff"
+        scrolling="no" frameborder="0" allowfullscreen="true"
+        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+    </div>
   </div>
 </section>
 
