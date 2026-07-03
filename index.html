@@ -345,16 +345,19 @@ document.getElementById("shop-grid").addEventListener("click", e => {
 /* ---- Booking ---- */
 document.getElementById("book-form").addEventListener("submit", async e => {
   e.preventDefault();
-  const d = Object.fromEntries(new FormData(e.target).entries());
+  const form = e.target;
+  const d = Object.fromEntries(new FormData(form).entries());
   const isNew = d.client === "new";
   await sendLead((isNew ? "New-client booking" : "Returning booking")+" — "+d.service, d);
-  if (isNew){
-    if (PAY_LINK){ window.open(PAY_LINK, "_blank"); }
-    else { alert("Request sent! As a first-time client, your spot is held with the $35 non-refundable deposit — the salon will text/email you a secure payment link to confirm. It's credited to your service."); }
-  } else {
-    alert("Welcome back! Request sent — no deposit needed. We'll reach out to confirm your time. 💕");
-  }
-  e.target.reset();
+  if (isNew && PAY_LINK) window.open(PAY_LINK, "_blank");
+  const msg = isNew
+    ? "Request sent! As a first-time client, your spot is held with the $35 non-refundable deposit — we'll text or email you a secure payment link to confirm. It's credited toward your service."
+    : "Welcome back! Request sent — no deposit needed. We'll reach out to confirm your appointment time.";
+  // inline confirmation (no native alert dialog)
+  const done = document.createElement("div");
+  done.style.cssText = "background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px;color:var(--ink)";
+  done.innerHTML = `<h3 style="margin:0 0 8px">Thank you! 💕</h3><p style="margin:0">${msg}</p>`;
+  form.replaceWith(done);
 });
 
 /* ---- Chat: capture name -> email -> phone, then hand off ---- */
