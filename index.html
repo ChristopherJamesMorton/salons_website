@@ -7,9 +7,10 @@
 <link rel="icon" href="assets/salon/lc-logo.jpg" />
 <style>
   :root{
-    --bg:#faf7f4; --ink:#2b2b2b; --muted:#7a6f68;
-    --gold:#b58a5a; --gold-dk:#8f6a3e; --rose:#c98c8c;
-    --card:#fff; --line:#ece4dc; --radius:14px;
+    /* Rose theme (default, non-holiday) */
+    --bg:#faf5f6; --ink:#2b2b2b; --muted:#7a6a6d;
+    --gold:#c2687a; --gold-dk:#9c4f5e; --rose:#b76e79;
+    --card:#fff; --line:#efe1e5; --radius:14px;
   }
   *{box-sizing:border-box}
   body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
@@ -47,7 +48,7 @@
   @media(max-width:720px){.nav-links{display:none}}
 
   /* hero */
-  .hero{background:linear-gradient(120deg,#f3e9df,#f7eef0);padding:80px 0}
+  .hero{background:linear-gradient(120deg,#f7e6ec,#f2dbe3);padding:80px 0}
   .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
   .hero h1{font-size:46px;line-height:1.1;margin:.2em 0}
   .hero p{font-size:18px;color:var(--muted);max-width:46ch}
@@ -402,7 +403,7 @@ document.getElementById("chat-input").addEventListener("keydown", e => { if(e.ke
 const HOLIDAY_THEMES = {
   july4: {
     banner: "🦅  ⭐ Happy 4th of July ⭐  —  book your holiday glam!  🎆",
-    from: "07-01", to: "07-07",
+    from: "07-01", to: "07-05",
     vars: { "--gold":"#e23b4e", "--gold-dk":"#ff8a97", "--rose":"#3c3b6e", "--bg":"transparent",
             "--ink":"#f2f3fb", "--muted":"#c9cee6", "--card":"rgba(255,255,255,.08)", "--line":"rgba(255,255,255,.22)" },
     // navy field up top, red/white stripe bar along the bottom — the flag, in one background.
